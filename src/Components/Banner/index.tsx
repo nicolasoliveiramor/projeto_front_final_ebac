@@ -1,8 +1,8 @@
 import { Imagem, Logo, LogoInicial, Title, ImagemRestaurante } from './styles'
-
-import banner from '../../assets/images/vector.png'
-import logo from '../../assets/images/logo.png'
 import { RestauranteLink } from './styles'
+
+import logo from '../../assets/images/logo.png'
+import banner from '../../assets/images/vector.png'
 
 export const Banner = () => (
   <Imagem style={{ backgroundImage: `url(${banner})` }}>

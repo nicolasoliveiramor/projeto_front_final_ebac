@@ -1,72 +1,33 @@
-import { Restaurante } from '../../models/Restaurante.model'
+import { useEffect, useState } from 'react'
 
-import sushiImage from '../../assets/images/japones.png'
-import macarraoImage from '../../assets/images/macarrao.png'
-import { ListaDeRestaurantes } from '../../Components/RestaurantList'
+import { RestauranteInterface } from '../../models'
+import { ListaDeRestaurantes } from '../../Components/Lists'
+
 import { Banner } from '../../Components/Banner'
 import { Footer } from '../../Components/Footer'
 
-export const restaurantes: Restaurante[] = [
-  {
-    id: 1,
-    title: 'La Dolce Vita Trattoria',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    rating: 5,
-    infos: ['Destaque da semana', 'Italiana'],
-    image: macarraoImage
-  },
-  {
-    id: 2,
-    title: 'Hioki Sushi ',
-    description:
-      'Desfrute do melhor sushi da cidade com ingredientes frescos e de alta qualidade. Entrega rápida e segura para você aproveitar no conforto de casa.',
-    rating: 5,
-    infos: ['Japonesa', 'R$ 39,90'],
-    image: sushiImage
-  },
-  {
-    id: 3,
-    title: 'Sushi House',
-    description:
-      'Desfrute do melhor sushi da cidade com ingredientes frescos e de alta qualidade. Entrega rápida e segura para você aproveitar no conforto de casa.',
-    rating: 4.5,
-    infos: ['Japonesa', 'R$ 49,90'],
-    image: sushiImage
-  },
-  {
-    id: 4,
-    title: 'Sushi Express',
-    description:
-      'Sushis variados e deliciosos preparados na hora. Peça agora e receba em poucos minutos. Qualidade e sabor garantidos!',
-    rating: 4.8,
-    infos: ['Japonesa', 'R$ 29,90'],
-    image: sushiImage
-  },
-  {
-    id: 5,
-    title: 'Sushi Gourmet',
-    description:
-      'Experimente a alta gastronomia japonesa com nossos pratos exclusivos. Ingredientes selecionados e preparo artesanal para uma experiência única.',
-    rating: 5,
-    infos: ['Japonesa', 'R$ 59,90'],
-    image: sushiImage
-  },
-  {
-    id: 6,
-    title: 'Sushi Delivery',
-    description:
-      'O melhor do sushi entregue na sua casa com rapidez e segurança. Pratos frescos e saborosos para você aproveitar sem sair de casa.',
-    rating: 4.7,
-    infos: ['Japonesa', 'R$ 39,90'],
-    image: sushiImage
-  }
-]
+export const Home = () => {
+  const [restaurantes, setRestaurantes] = useState<RestauranteInterface[]>([])
 
-export const Home = () => (
-  <>
-    <Banner />
-    <ListaDeRestaurantes restaurante={restaurantes} />
-    <Footer />
-  </>
-)
+  useEffect(() => {
+    const fetchRestaurante = async (url: string) => {
+      try {
+        const resposta = await fetch(url)
+        const data = await resposta.json()
+        setRestaurantes(data)
+      } catch (error) {
+        console.error(`Erro ao buscar dados do restaurante: ${error}`)
+      }
+    }
+
+    fetchRestaurante(`https://fake-api-tau.vercel.app/api/efood/restaurantes`)
+  }, [])
+
+  return (
+    <>
+      <Banner />
+      <ListaDeRestaurantes restaurantes={restaurantes} />
+      <Footer />
+    </>
+  )
+}

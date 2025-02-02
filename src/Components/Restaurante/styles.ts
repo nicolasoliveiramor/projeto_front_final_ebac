@@ -6,7 +6,7 @@ import { ButtonLink } from '../Button/styles'
 export const Card = styled.div`
   background-color: ${Cores.white};
   max-width: 472px;
-  min-height: 398px;
+  min-height: 438px;
   position: relative;
   border: 2px solid ${Cores.fontColor};
 
@@ -33,16 +33,6 @@ export const Card = styled.div`
     bottom: 8px;
     left: 8px;
   }
-`
-
-export const CardProducts = styled(Card)`
-  width: 320px;
-  height: 338px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: ${Cores.fontColor};
-  color: ${Cores.fontColorSecondary};
 `
 
 export const ImagemDoPrato = styled.div`

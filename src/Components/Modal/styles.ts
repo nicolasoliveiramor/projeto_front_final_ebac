@@ -47,7 +47,6 @@ export const SubModal = styled.div`
 export const ModalDetails = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 32px;
   padding-left: 32px;
   padding-right: 32px;
 
@@ -64,11 +63,6 @@ export const ModalDescription = styled.div`
   justify-content: start;
   margin-left: 24px;
 
-  p {
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
-
   button {
     width: 218px;
     height: 24px;
@@ -79,13 +73,9 @@ export const ModalDescription = styled.div`
     font-size: 14px;
     cursor: pointer;
   }
-`
 
-export const ModalText = styled.div`
-  width: 656px;
-  height: 176px;
-
-  p {
-    display: block;
+  span {
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 `

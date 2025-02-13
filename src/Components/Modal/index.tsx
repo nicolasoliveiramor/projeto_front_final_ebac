@@ -9,7 +9,6 @@ import {
   Modal,
   ModalDescription,
   ModalDetails,
-  ModalText,
   Overlay,
   SubModal
 } from './styles'
@@ -44,10 +43,8 @@ export const ModalOverlay = ({ prato, closeModal }: ModalOverlayProps) => {
             <img src={prato.foto} alt={prato.nome} />
             <ModalDescription>
               <h3>{prato.nome}</h3>
-              <ModalText>
-                <p>{prato.descricao}</p>
-                <p>Serve: de {prato.porcao}</p>
-              </ModalText>
+              <span>{prato.descricao}</span>
+              <span>Serve: de {prato.porcao}</span>
               <button
                 type="button"
                 onClick={() => {

@@ -14,9 +14,18 @@ export const Modal = styled.div`
   justify-content: center;
 `
 
+export const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`
+
 export const CloseModalDiv = styled.div`
   display: flex;
   align-self: flex-end;
+  cursor: pointer;
 
   img {
     margin: 8px;
@@ -32,6 +41,7 @@ export const SubModal = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: ${Cores.fontColor};
+  z-index: 1;
 `
 
 export const ModalDetails = styled.div`
@@ -67,10 +77,15 @@ export const ModalDescription = styled.div`
     color: ${Cores.fontColor};
     font-weight: bold;
     font-size: 14px;
+    cursor: pointer;
   }
 `
 
 export const ModalText = styled.div`
   width: 656px;
   height: 176px;
+
+  p {
+    display: block;
+  }
 `

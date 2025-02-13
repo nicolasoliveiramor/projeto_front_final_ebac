@@ -7,6 +7,12 @@ export const Cores = {
   white: '#fff'
 }
 
+export const breakpoints = {
+  desktop: '1024px',
+  tablet: '768px',
+  mobile: '450px'
+}
+
 export const GlobalCss = createGlobalStyle`
   * {
     margin: 0;
@@ -26,5 +32,9 @@ export const GlobalCss = createGlobalStyle`
     max-width: 1024px;
     width: 100%;
     margin: 0 auto;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      max-width: 80%;
+    }
   }
 `

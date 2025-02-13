@@ -14,7 +14,7 @@ export const CardProducts = styled(Card)`
   background-color: ${Cores.fontColor};
   color: ${Cores.fontColorSecondary};
 
-  .container {
+  p {
     height: 225px;
     margin-bottom: 8px;
   }

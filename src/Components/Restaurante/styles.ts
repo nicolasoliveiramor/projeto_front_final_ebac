@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Cores } from '../../styles'
+import { breakpoints, Cores } from '../../styles'
 import { ButtonLink } from '../Button/styles'
 
 export const Card = styled.div`
@@ -10,7 +10,13 @@ export const Card = styled.div`
   position: relative;
   border: 2px solid ${Cores.fontColor};
 
-  .container {
+  h3 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,19 +25,18 @@ export const Card = styled.div`
     padding-bottom: 16px;
   }
 
-  h3 {
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
-
-  p {
-    width: 100%;
-  }
-
   ${ButtonLink} {
     position: absolute;
     bottom: 8px;
     left: 8px;
+  }
+
+  @media (max-width: ${breakpoints.desktop}) {
+    min-height: 456px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    min-height: 510px;
   }
 `
 

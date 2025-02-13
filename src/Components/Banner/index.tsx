@@ -1,4 +1,14 @@
-import { Imagem, Logo, LogoInicial, Title, ImagemRestaurante } from './styles'
+import { RootReducer } from '../../store'
+import { useSelector } from 'react-redux'
+
+import {
+  Imagem,
+  Logo,
+  LogoInicial,
+  Title,
+  ImagemRestaurante,
+  BannerContent
+} from './styles'
 import { RestauranteLink } from './styles'
 
 import logo from '../../assets/images/logo.png'
@@ -13,14 +23,18 @@ export const Banner = () => (
   </Imagem>
 )
 
-export const ProductBanner = () => (
-  <ImagemRestaurante style={{ backgroundImage: `url(${banner})` }}>
-    <div>
-      <RestauranteLink to={'/'}>Restaurantes</RestauranteLink>
-      <Logo src={logo} />
-      <p>
-        <span>0</span> Produtos(s) no carrinho
-      </p>
-    </div>
-  </ImagemRestaurante>
-)
+export const ProductBanner = () => {
+  const { items } = useSelector((state: RootReducer) => state.cart)
+
+  return (
+    <ImagemRestaurante style={{ backgroundImage: `url(${banner})` }}>
+      <BannerContent>
+        <RestauranteLink to={'/'}>Restaurantes</RestauranteLink>
+        <Logo src={logo} />
+        <p>
+          <span>{items.length}</span> Produtos(s) no carrinho
+        </p>
+      </BannerContent>
+    </ImagemRestaurante>
+  )
+}

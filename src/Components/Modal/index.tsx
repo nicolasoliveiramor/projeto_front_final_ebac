@@ -1,6 +1,8 @@
-import { PratoInterface } from '../../models'
+import { useDispatch } from 'react-redux'
 
-import close from '../../assets/images/close.png'
+import { PratoInterface } from '../../models'
+import { add, open } from '../../store/reducers/cart'
+import { formataPreco } from '../../utils'
 
 import {
   CloseModalDiv,
@@ -8,9 +10,11 @@ import {
   ModalDescription,
   ModalDetails,
   ModalText,
+  Overlay,
   SubModal
 } from './styles'
-import { formataPreco } from '../../utils'
+
+import close from '../../assets/images/close.png'
 
 export type ModalOverlayProps = {
   prato: PratoInterface
@@ -18,9 +22,20 @@ export type ModalOverlayProps = {
 }
 
 export const ModalOverlay = ({ prato, closeModal }: ModalOverlayProps) => {
+  const dispatch = useDispatch()
+
+  const openCart = () => {
+    dispatch(open())
+  }
+
+  const addToCart = (prato: PratoInterface) => {
+    dispatch(add(prato))
+  }
+
   return (
     <>
-      <Modal onClick={closeModal}>
+      <Modal>
+        <Overlay onClick={closeModal} />
         <SubModal>
           <CloseModalDiv>
             <img src={close} onClick={closeModal} />
@@ -33,7 +48,13 @@ export const ModalOverlay = ({ prato, closeModal }: ModalOverlayProps) => {
                 <p>{prato.descricao}</p>
                 <p>Serve: de {prato.porcao}</p>
               </ModalText>
-              <button>
+              <button
+                type="button"
+                onClick={() => {
+                  openCart()
+                  addToCart(prato)
+                }}
+              >
                 Adicionar ao carrinho - <span>{formataPreco(prato.preco)}</span>
               </button>
             </ModalDescription>

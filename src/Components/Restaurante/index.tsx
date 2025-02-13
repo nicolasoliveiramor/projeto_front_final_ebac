@@ -41,9 +41,7 @@ export const Restaurantes = ({
             <img src={star} />
           </Rating>
         </TitleProduct>
-        <div className="container">
-          <p>{restaurante.descricao}</p>
-        </div>
+        <p>{restaurante.descricao}</p>
         <ButtonLink to={`/restaurante/${restaurante.id}`}>
           Saiba mais
         </ButtonLink>

@@ -1,8 +1,22 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { Cores } from '../../styles'
+import { breakpoints, Cores } from '../../styles'
+
+export const Logo = styled.img`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 124px;
+  height: 58px;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 62px;
+    height: 29px;
+  }
+`
 
 export const Imagem = styled.div`
+  max-width: auto;
   width: 100%;
   height: 384px;
   display: flex;
@@ -11,18 +25,22 @@ export const Imagem = styled.div`
   position: relative;
 
   .container {
-    position: relative;
-    width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    ${Logo} {
+      margin-bottom: 262px;
+    }
   }
 `
 
-export const Logo = styled.img`
+export const BannerContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `
 
 export const LogoInicial = styled(Logo)`
@@ -30,20 +48,25 @@ export const LogoInicial = styled(Logo)`
 `
 
 export const Title = styled.h1`
+  max-width: 539px;
+  width: 100%;
   position: absolute;
-  width: 539px;
   line-height: 42px;
   top: 236px;
   text-align: center;
   font-weight: bold;
   font-size: 36px;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 80%;
+    top: 118px;
+  }
 `
 
 export const ImagemRestaurante = styled(Imagem)`
   display: flex;
   height: 186px;
   align-items: center;
-  justify-content: space-between;
   padding: 0 32px;
 
   div {
@@ -51,6 +74,16 @@ export const ImagemRestaurante = styled(Imagem)`
     display: flex;
     align-items: center;
     justify-content: space-around;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      justify-content: center;
+      gap: 8px;
+    }
+
+    @media (max-width: ${breakpoints.mobile}) {
+      justify-content: center;
+      gap: 8px;
+    }
   }
 
   span {

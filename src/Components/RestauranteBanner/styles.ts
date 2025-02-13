@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Cores } from '../../styles'
+import { breakpoints, Cores } from '../../styles'
 
 export const RestaurantApresentation = styled.div`
   width: 100%;
@@ -34,15 +34,23 @@ export const RestauranteTitle = styled.p`
   bottom: 32px;
   left: 170px;
   z-index: 1;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    left: 10%;
+  }
 `
 
 export const RestauranteType = styled.p`
   color: ${Cores.white};
   font-weight: lighter;
   font-size: 32px;
-  line-height: 34px;
+  line-height: 38px;
   position: absolute;
   top: 32px;
   left: 170px;
   z-index: 1;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    left: 10%;
+  }
 `

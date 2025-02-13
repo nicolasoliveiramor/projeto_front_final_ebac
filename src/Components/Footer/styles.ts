@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Cores } from '../../styles'
+import { breakpoints, Cores } from '../../styles'
 
 export const Container = styled.footer`
   background-color: ${Cores.fontColorSecondary};
@@ -20,11 +20,16 @@ export const Container = styled.footer`
   }
 
   p {
-    width: 480px;
+    max-width: 480px;
+    width: 100%;
     height: 24px;
     font-size: 10px;
     line-height: 11.72px;
     text-align: center;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      width: 80%;
+    }
   }
 `
 

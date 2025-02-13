@@ -22,9 +22,7 @@ export const Pratos = ({ prato }: { prato: PratoInterface }) => {
       <TitleProduct>
         <h3>{prato.nome}</h3>
       </TitleProduct>
-      <div className="container">
-        <p>{prato.descricao}</p>
-      </div>
+      <p>{prato.descricao}</p>
       <ButtonContainer onClick={openModal}>Mais detalhes</ButtonContainer>
       {isModalVisible && (
         <ModalOverlay prato={prato} closeModal={closeModal}></ModalOverlay>

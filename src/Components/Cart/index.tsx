@@ -48,7 +48,7 @@ export const Cart = () => {
         ))}
         <Prices>
           <p>Valor total </p>
-          <p>R$ {formataPreco(getTotalPrice())}</p>
+          <p>{formataPreco(getTotalPrice())}</p>
         </Prices>
         <Button type="button" title="string">
           Continuar com a entrega

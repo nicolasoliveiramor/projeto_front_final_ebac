@@ -91,8 +91,13 @@ export const ImagemRestaurante = styled(Imagem)`
     font-weight: bold;
   }
 
-  p {
+  button {
+    border: none;
+    background-color: transparent;
+    color: ${Cores.fontColor};
     font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
   }
 `
 

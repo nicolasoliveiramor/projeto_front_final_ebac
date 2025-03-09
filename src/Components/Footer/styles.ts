@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-import { breakpoints, Cores } from '../../styles'
+import { breakpoints, Colors } from '../../styles'
 
 export const Container = styled.footer`
-  background-color: ${Cores.fontColorSecondary};
+  background-color: ${Colors.fontColorSecondary};
   height: 298px;
   font-size: 10px;
   display: flex;
@@ -34,7 +34,7 @@ export const Container = styled.footer`
 `
 
 export const Link = styled.a`
-  color: ${Cores.fontColor};
+  color: ${Colors.fontColor};
   text-decoration: none;
 
   img {

@@ -6,9 +6,13 @@ import { ProductBanner } from '../../Components/Banner'
 import { Footer } from '../../Components/Footer'
 import { useGetRestauranteEspecificoQuery } from '../../services/api'
 
+type PratoParams = {
+  id: string
+}
+
 export const PratosRestaurante = () => {
-  const { id } = useParams()
-  const { data: restaurante } = useGetRestauranteEspecificoQuery(id!)
+  const { id } = useParams() as PratoParams
+  const { data: restaurante } = useGetRestauranteEspecificoQuery(id)
 
   if (restaurante) {
     return (

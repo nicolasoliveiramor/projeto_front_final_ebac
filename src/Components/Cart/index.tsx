@@ -1,27 +1,31 @@
 import { useDispatch, useSelector } from 'react-redux'
+
 import { RootReducer } from '../../store'
+import { close, remove, openCheckout } from '../../store/reducers/cart'
+import { formataPreco, getTotalPrice } from '../../utils'
 
-import { close, remove } from '../../store/reducers/cart'
-import { formataPreco } from '../../utils'
+import {
+  ButtonCart,
+  CartContainer,
+  CartItem,
+  Overlay,
+  Prices,
+  Sidebar
+} from './styles'
 
-import { Button } from '../Button'
-import { CartContainer, CartItem, Overlay, Prices, Sidebar } from './styles'
-
-import fechar from '../../assets/images/lixeira-de-reciclagem.png'
+import exit from '../../assets/images/lixeira-de-reciclagem.png'
 
 export const Cart = () => {
-  const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
-
   const dispatch = useDispatch()
 
-  const closeCart = () => {
-    dispatch(close())
+  const { items, isOpen } = useSelector((state: RootReducer) => state.cart)
+
+  const handleOpenCheckout = () => {
+    dispatch(openCheckout())
   }
 
-  const getTotalPrice = () => {
-    return items.reduce((acumulador, valorAtual) => {
-      return (acumulador += valorAtual.preco!)
-    }, 0)
+  const handleCloseCart = () => {
+    dispatch(close())
   }
 
   const removeItem = (id: number) => {
@@ -30,29 +34,42 @@ export const Cart = () => {
 
   return (
     <CartContainer className={isOpen ? 'is-open' : ''}>
-      <Overlay onClick={closeCart} />
+      <Overlay onClick={handleCloseCart} />
       <Sidebar>
-        {items.map((item) => (
-          <CartItem key={item.id}>
-            <li>
-              <img src={item.foto} alt={item.nome} />
-              <div>
-                <h3>{item.nome}</h3>
-                <span>{formataPreco(item.preco)}</span>
-              </div>
-            </li>
-            <button type="button" onClick={() => removeItem(item.id)}>
-              <img src={fechar} alt={`Remover ${item.nome}`} />
-            </button>
-          </CartItem>
-        ))}
-        <Prices>
-          <p>Valor total </p>
-          <p>{formataPreco(getTotalPrice())}</p>
-        </Prices>
-        <Button type="button" title="string">
-          Continuar com a entrega
-        </Button>
+        {items.length === 0 ? (
+          <p>Poxa... Não há nada aqui, adicione algum prato.</p>
+        ) : (
+          <>
+            {items.map((item) => (
+              <CartItem key={item.id}>
+                <li>
+                  <img src={item.foto} alt={item.nome} />
+                  <div>
+                    <h3>{item.nome}</h3>
+                    <span>{formataPreco(item.preco)}</span>
+                  </div>
+                </li>
+                <button type="button" onClick={() => removeItem(item.id)}>
+                  <img src={exit} alt={`Remover ${item.nome}`} />
+                </button>
+              </CartItem>
+            ))}
+            <Prices>
+              <p>Valor total </p>
+              <p>{formataPreco(getTotalPrice(items))}</p>
+            </Prices>
+            <ButtonCart
+              type="button"
+              title="string"
+              onClick={() => {
+                handleOpenCheckout()
+                handleCloseCart()
+              }}
+            >
+              Continuar com a entrega
+            </ButtonCart>
+          </>
+        )}
       </Sidebar>
     </CartContainer>
   )

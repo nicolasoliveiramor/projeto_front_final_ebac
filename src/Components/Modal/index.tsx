@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
 
-import { PratoInterface } from '../../models'
 import { add, open } from '../../store/reducers/cart'
 import { formataPreco } from '../../utils'
 
@@ -23,11 +22,11 @@ export type ModalOverlayProps = {
 export const ModalOverlay = ({ prato, closeModal }: ModalOverlayProps) => {
   const dispatch = useDispatch()
 
-  const openCart = () => {
+  const handleOpenCart = () => {
     dispatch(open())
   }
 
-  const addToCart = (prato: PratoInterface) => {
+  const handleAddToCart = (prato: PratoInterface) => {
     dispatch(add(prato))
   }
 
@@ -48,8 +47,8 @@ export const ModalOverlay = ({ prato, closeModal }: ModalOverlayProps) => {
               <button
                 type="button"
                 onClick={() => {
-                  openCart()
-                  addToCart(prato)
+                  handleOpenCart()
+                  handleAddToCart(prato)
                 }}
               >
                 Adicionar ao carrinho - <span>{formataPreco(prato.preco)}</span>

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Cores } from '../../styles'
+import { Colors } from '../../styles'
 
 export const Modal = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
@@ -40,7 +40,7 @@ export const SubModal = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: ${Cores.fontColor};
+  background-color: ${Colors.fontColor};
   z-index: 1;
 `
 
@@ -67,8 +67,8 @@ export const ModalDescription = styled.div`
     width: 218px;
     height: 24px;
     border: none;
-    background-color: ${Cores.fontColorSecondary};
-    color: ${Cores.fontColor};
+    background-color: ${Colors.fontColorSecondary};
+    color: ${Colors.fontColor};
     font-weight: bold;
     font-size: 14px;
     cursor: pointer;

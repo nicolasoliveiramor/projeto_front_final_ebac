@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { PratoInterface } from '../../models'
 import { ButtonContainer } from '../Button/styles'
 import { ImagemDoPrato, TitleProduct, CardProducts } from './styles'
 import { ModalOverlay } from '../Modal'

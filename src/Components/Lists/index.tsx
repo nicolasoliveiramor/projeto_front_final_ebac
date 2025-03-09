@@ -1,5 +1,3 @@
-import { PratoInterface, RestauranteInterface } from '../../models'
-
 import { Pratos } from '../Pratos'
 import { Restaurantes } from '../Restaurante'
 import { GridRestaurantes, GridPratos } from './styles'

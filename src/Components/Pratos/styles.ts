@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import { Card } from '../Restaurante/styles'
-import { Cores } from '../../styles'
+import { Colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 
 export const CardProducts = styled(Card)`
@@ -11,8 +11,8 @@ export const CardProducts = styled(Card)`
   flex-direction: column;
   align-items: center;
   position: relative;
-  background-color: ${Cores.fontColor};
-  color: ${Cores.fontColorSecondary};
+  background-color: ${Colors.fontColor};
+  color: ${Colors.fontColorSecondary};
 
   p {
     height: 225px;

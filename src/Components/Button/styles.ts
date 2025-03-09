@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Cores } from '../../styles'
+import { Colors } from '../../styles'
 import { Link } from 'react-router-dom'
 
 export const ButtonContainer = styled.button`
@@ -8,8 +8,8 @@ export const ButtonContainer = styled.button`
   display: flex;
   justify-content: center;
   border: none;
-  color: ${Cores.fontColor};
-  background-color: ${Cores.fontColorSecondary};
+  color: ${Colors.fontColor};
+  background-color: ${Colors.fontColorSecondary};
   font-size: 16px;
   font-weight: bold;
   padding: 6px 4px;
@@ -20,8 +20,8 @@ export const ButtonContainer = styled.button`
 export const ButtonLink = styled(Link)`
   display: block;
   border: none;
-  color: ${Cores.fontColorSecondary};
-  background-color: ${Cores.fontColor};
+  color: ${Colors.fontColorSecondary};
+  background-color: ${Colors.fontColor};
   font-size: 16px;
   font-weight: bold;
   padding: 6px 4px;

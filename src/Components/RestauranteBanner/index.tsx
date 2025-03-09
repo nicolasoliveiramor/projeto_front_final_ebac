@@ -1,5 +1,3 @@
-import { RestauranteInterface } from '../../models'
-
 import {
   RestauranteTitle,
   RestauranteType,

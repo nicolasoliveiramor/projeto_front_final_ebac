@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 
-import { breakpoints, Cores } from '../../styles'
+import { breakpoints, Colors } from '../../styles'
 import { ButtonLink } from '../Button/styles'
 
 export const Card = styled.div`
-  background-color: ${Cores.white};
+  background-color: ${Colors.white};
   max-width: 472px;
   min-height: 438px;
   position: relative;
-  border: 2px solid ${Cores.fontColor};
+  border: 2px solid ${Colors.fontColor};
 
   h3 {
     margin-top: 8px;
@@ -56,8 +56,8 @@ export const Infos = styled.div`
 `
 
 export const TagInfo = styled.div`
-  background-color: ${Cores.fontColor};
-  color: ${Cores.fontColorSecondary};
+  background-color: ${Colors.fontColor};
+  color: ${Colors.fontColorSecondary};
   padding: 8px;
   height: 26px;
   display: flex;

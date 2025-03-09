@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Cores } from '../../styles'
+import { Colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 
 export const Overlay = styled.div`
@@ -28,8 +28,8 @@ export const CartContainer = styled.div`
 `
 
 export const Sidebar = styled.aside`
-  background-color: ${Cores.fontColor};
-  color: ${Cores.fontColorSecondary};
+  background-color: ${Colors.fontColor};
+  color: ${Colors.fontColorSecondary};
   z-index: 1;
   padding: 40px 16px 0 16px;
   max-width: 360px;
@@ -37,9 +37,11 @@ export const Sidebar = styled.aside`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  text-align: center;
+  font-weight: bold;
 
   ul {
-    background-color: ${Cores.fontColorSecondary};
+    background-color: ${Colors.fontColorSecondary};
     display: flex;
 
     img {
@@ -49,11 +51,14 @@ export const Sidebar = styled.aside`
       margin-right: 8px;
     }
   }
+`
 
-  ${ButtonContainer} {
-    max-width: 100%;
-    width: 100%;
-  }
+export const ButtonCart = styled(ButtonContainer)`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 24px;
+  margin-bottom: 8px;
 `
 
 export const Prices = styled.div`
@@ -62,7 +67,7 @@ export const Prices = styled.div`
   display: inline-flex;
   font-weight: 700;
   font-size: 14px;
-  color: ${Cores.fontColorSecondary};
+  color: ${Colors.fontColorSecondary};
   margin-bottom: 24px;
 `
 
@@ -83,12 +88,12 @@ export const CartItem = styled.ul`
       flex-direction: column;
 
       h3 {
-        color: ${Cores.fontColor};
+        color: ${Colors.fontColor};
       }
 
       span {
         margin-top: 16px;
-        color: ${Cores.fontColor};
+        color: ${Colors.fontColor};
       }
     }
   }

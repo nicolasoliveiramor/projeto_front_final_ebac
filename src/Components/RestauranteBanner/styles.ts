@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { breakpoints, Cores } from '../../styles'
+import { breakpoints, Colors } from '../../styles'
 
 export const RestaurantApresentation = styled.div`
   width: 100%;
@@ -26,7 +26,7 @@ export const RestauranteImage = styled.img`
 `
 
 export const RestauranteTitle = styled.p`
-  color: ${Cores.white};
+  color: ${Colors.white};
   font-weight: 900;
   font-size: 32px;
   line-height: 38px;
@@ -41,7 +41,7 @@ export const RestauranteTitle = styled.p`
 `
 
 export const RestauranteType = styled.p`
-  color: ${Cores.white};
+  color: ${Colors.white};
   font-weight: lighter;
   font-size: 32px;
   line-height: 38px;

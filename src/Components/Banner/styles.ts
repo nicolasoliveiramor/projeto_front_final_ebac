@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { breakpoints, Cores } from '../../styles'
+import { breakpoints, Colors } from '../../styles'
 
 export const Logo = styled.img`
   display: flex;
@@ -94,7 +94,7 @@ export const ImagemRestaurante = styled(Imagem)`
   button {
     border: none;
     background-color: transparent;
-    color: ${Cores.fontColor};
+    color: ${Colors.fontColor};
     font-weight: bold;
     font-size: 18px;
     cursor: pointer;
@@ -105,5 +105,5 @@ export const RestauranteLink = styled(Link)`
   font-size: 18px;
   font-weight: 900;
   line-height: 21px;
-  color: ${Cores.fontColor};
+  color: ${Colors.fontColor};
 `

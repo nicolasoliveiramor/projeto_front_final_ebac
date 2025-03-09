@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
-export const Cores = {
+export const Colors = {
   fontColor: '#E66767',
   fontColorSecondary: '#FFEBD9',
   corDeFundo: '#FFF8F2',
@@ -24,8 +24,8 @@ export const GlobalCss = createGlobalStyle`
   }
 
   body {
-    background-color: ${Cores.corDeFundo};
-    color: ${Cores.fontColor};
+    background-color: ${Colors.corDeFundo};
+    color: ${Colors.fontColor};
   }
 
   .container {

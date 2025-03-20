@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Colors } from '../../styles'
+import { breakpoints, Colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 
 export const Overlay = styled.div`
@@ -28,16 +28,16 @@ export const CartContainer = styled.div`
 `
 
 export const Sidebar = styled.aside`
-  background-color: ${Colors.fontColor};
-  color: ${Colors.fontColorSecondary};
-  z-index: 1;
-  padding: 40px 16px 0 16px;
   max-width: 360px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
   text-align: center;
+  padding: 40px 16px 0 16px;
+  gap: 16px;
+  z-index: 1;
+  background-color: ${Colors.fontColor};
+  color: ${Colors.fontColorSecondary};
   font-weight: bold;
 
   ul {
@@ -50,6 +50,10 @@ export const Sidebar = styled.aside`
       object-fit: cover;
       margin-right: 8px;
     }
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 90%;
   }
 `
 
@@ -92,6 +96,8 @@ export const CartItem = styled.ul`
       }
 
       span {
+        font-weight: lighter;
+        text-align: start;
         margin-top: 16px;
         color: ${Colors.fontColor};
       }

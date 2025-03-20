@@ -1,4 +1,4 @@
-declare interface PratoInterface {
+declare interface DishInterface {
   length: number
   foto: string
   preco: number
@@ -8,7 +8,7 @@ declare interface PratoInterface {
   porcao: string
 }
 
-declare interface RestauranteInterface {
+declare interface RestaurantInterface {
   id: number
   titulo: string
   destacado: boolean
@@ -29,7 +29,7 @@ declare interface PurchasePayload {
   delivery?: {
     receiver: string
     address: {
-      description: string
+      description?: string
       city: string
       zipCode: string
       number: number

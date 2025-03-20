@@ -1,21 +1,22 @@
-import { ListaDeRestaurantes } from '../../Components/Lists'
-
-import { Banner } from '../../Components/Banner'
+import { RestaurantList } from '../../Components/Lists'
+import { SiteBanner } from '../../Components/Banner'
 import { Footer } from '../../Components/Footer'
-import { useGetRestaurantesQuery } from '../../services/api'
+import { Loader } from '../../Components/Loader'
+
+import { useGetRestaurantQuery } from '../../services/api'
 
 export const Home = () => {
-  const { data: restaurantes } = useGetRestaurantesQuery()
+  const { data: restaurant } = useGetRestaurantQuery()
 
-  if (restaurantes) {
+  if (restaurant) {
     return (
       <>
-        <Banner />
-        <ListaDeRestaurantes restaurantes={restaurantes} />
+        <SiteBanner />
+        <RestaurantList restaurants={restaurant} />
         <Footer />
       </>
     )
   }
 
-  return <h3>Carregando...</h3>
+  return <Loader />
 }

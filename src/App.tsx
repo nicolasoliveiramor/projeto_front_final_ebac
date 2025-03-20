@@ -2,7 +2,7 @@ import { store } from './store'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-import { Rotas } from './routes'
+import { UrlRoutes } from './routes'
 
 import { Cart } from './Components/Cart'
 
@@ -14,7 +14,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <GlobalCss />
-        <Rotas />
+        <UrlRoutes />
         <Cart />
         <Checkout />
       </BrowserRouter>

@@ -6,11 +6,11 @@ import * as Yup from 'yup'
 import ReactInputMask from 'react-input-mask'
 
 import { RootReducer } from '../../store'
-import { clear, close, closeCheckout, open } from '../../store/reducers/cart'
-import { getTotalPrice, formataPreco } from '../../utils'
+import { clear, open, closeCheckout } from '../../store/reducers/cart'
+import { getTotalPrice, formataprice } from '../../utils'
+import { usePurchaseMutation } from '../../services/api'
 
 import * as S from './styles'
-import { usePurchaseMutation } from '../../services/api'
 
 export const Checkout = () => {
   const dispatch = useDispatch()
@@ -18,7 +18,7 @@ export const Checkout = () => {
 
   const [isPaying, setIsPaying] = useState(false)
   const [isFinalized, setIsFinalized] = useState(false)
-  const [purchase, { data, isSuccess }] = usePurchaseMutation()
+  const [purchase, { data, isSuccess, isLoading }] = usePurchaseMutation()
 
   const { items, isCheckoutOpen } = useSelector(
     (state: RootReducer) => state.cart
@@ -29,24 +29,45 @@ export const Checkout = () => {
     dispatch(open())
   }
 
-  const handleFinalization = () => {
-    setTimeout(() => {
-      navigate('/')
-    }, 300)
+  const checkInputHasError = (fieldname: string, message?: string) => {
+    const isError = getIn(form.errors, fieldname)
+    const isTouched = getIn(form.touched, fieldname)
+
+    if (isError && isTouched) return message
+
+    return ''
+  }
+
+  const checkInputIsReady = () => {
+    form.setTouched({
+      receiver: true,
+      address: {
+        description: true,
+        city: true,
+        zipCode: true,
+        number: true,
+        complement: true
+      }
+    })
+
+    const isValid =
+      form.values.receiver.trim() !== '' &&
+      form.values.address.description.trim() !== '' &&
+      form.values.address.city.trim() !== '' &&
+      form.values.address.zipCode.trim() !== '' &&
+      form.values.address.number.trim() !== ''
+
+    if (isValid) {
+      setIsPaying(true)
+    }
   }
 
   useEffect(() => {
-    if (isSuccess) {
-      dispatch(clear())
+    if (isCheckoutOpen) {
+      setIsPaying(false)
+      setIsFinalized(false)
     }
-  }, [isSuccess, dispatch])
-
-  const checkInputHasError = (fieldname: string) => {
-    const error = getIn(form.errors, fieldname)
-    const touch = getIn(form.touched, fieldname)
-
-    return touch && error
-  }
+  }, [isCheckoutOpen])
 
   const form = useFormik({
     initialValues: {
@@ -69,77 +90,69 @@ export const Checkout = () => {
       }
     },
     validationSchema: Yup.object({
-      receiver: Yup.string().required('Campo obrigatório'),
+      receiver: Yup.string().required('O campo é obrigatório'),
       address: Yup.object({
-        description: Yup.string().required('Campo obrigatório'),
-        city: Yup.string().required('Campo obrigatório'),
-        zipCode: Yup.string().required('Campo obrigatório'),
-        number: Yup.string()
-          .length(4, 'Deve ter exatamente 4 dígitos')
-          .required('Campo obrigatório'),
-        complement: Yup.string()
+        description: Yup.string().required('O campo é obrigatório'),
+        city: Yup.string().required('O campo é obrigatório'),
+        zipCode: Yup.string().required('O campo é obrigatório'),
+        number: Yup.string().required('O campo é obrigatório')
       }),
       card: Yup.object({
-        name: Yup.string().required('Campo obrigatório'),
-        number: Yup.string()
-          .max(16, 'Deve ter 16 dígitos')
-          .required('Campo obrigatório'),
-        code: Yup.string()
-          .min(3, 'Mínimo 3 dígitos')
-          .max(4, 'Máximo 4 dígitos')
-          .required('Campo obrigatório'),
+        name: Yup.string().required('O campo é obrigatório'),
+        number: Yup.string().required('O campo é obrigatório'),
+        code: Yup.string().required('O campo é obrigatório'),
         expires: Yup.object({
-          month: Yup.string()
-            .max(2, 'Deve ter 2 dígitos')
-            .required('Campo obrigatório'),
-          year: Yup.string()
-            .max(4, 'Deve ter 4 dígitos')
-            .required('Campo obrigatório')
+          month: Yup.string().required('O campo é obrigatório'),
+          year: Yup.string().required('O campo é obrigatório')
         })
       })
     }),
-    onSubmit: (values) => {
-      setIsFinalized(true)
-      setIsPaying(false)
+    onSubmit: async (values) => {
       form.resetForm()
 
-      console.log('Formik submit chamado!', values)
-
-      purchase({
-        delivery: {
-          receiver: values.receiver,
-          address: {
-            description: values.address.description,
-            city: values.address.city,
-            zipCode: values.address.zipCode,
-            number: Number(values.address.number),
-            complement: values.address.complement
-          }
-        },
-        payment: {
-          card: {
-            name: values.card.name,
-            number: values.card.number,
-            code: Number(values.card.code),
-            expires: {
-              month: Number(values.card.expires.month),
-              year: Number(values.card.expires.year)
+      try {
+        const response = await purchase({
+          delivery: {
+            receiver: values.receiver,
+            address: {
+              description: values.address.description,
+              city: values.address.city,
+              zipCode: values.address.zipCode,
+              number: Number(values.address.number),
+              complement: values.address.complement
             }
-          }
-        },
-        products: items.map((item) => ({
-          id: item.id,
-          price: item.preco
-        }))
-      })
+          },
+          payment: {
+            card: {
+              name: values.card.name,
+              number: values.card.number,
+              code: Number(values.card.code),
+              expires: {
+                month: Number(values.card.expires.month),
+                year: Number(values.card.expires.year)
+              }
+            }
+          },
+          products: items.map((item) => ({
+            id: item.id,
+            price: item.preco
+          }))
+        })
+
+        if (response) {
+          setIsFinalized(true)
+        }
+      } catch (error) {
+        console.error(error)
+      }
     }
   })
 
   return (
     <S.DeliveryContainer className={isCheckoutOpen ? 'is-open' : ''}>
-      <S.Overlay onClick={() => dispatch(close())} />
+      <S.Overlay onClick={() => dispatch(closeCheckout())} />
       <>
-        {isSuccess && data && isFinalized ? (
+        {isFinalized && isSuccess && data ? (
           <S.Sidebar>
             <span>Pedido realizado - {data.orderId}</span>
             <br />
@@ -168,8 +181,9 @@ export const Checkout = () => {
               type="button"
               title="Button"
               onClick={() => {
-                handleFinalization()
                 setIsFinalized(false)
+                dispatch(clear())
+                navigate('/')
               }}
             >
               Concluir
@@ -190,6 +204,9 @@ export const Checkout = () => {
                       value={form.values.receiver}
                       onChange={form.handleChange}
                     />
+                    <small>
+                      {checkInputHasError('receiver', form.errors.receiver)}
+                    </small>
                   </S.FormItem>
                   <S.FormItem>
                     <label htmlFor="description">Endereço</label>
@@ -200,6 +217,12 @@ export const Checkout = () => {
                       value={form.values.address.description}
                       onChange={form.handleChange}
                     />
+                    <small>
+                      {checkInputHasError(
+                        'address.description',
+                        form.errors.address?.description
+                      )}
+                    </small>
                   </S.FormItem>
                   <S.FormItem>
                     <label htmlFor="city">Cidade</label>
@@ -210,23 +233,33 @@ export const Checkout = () => {
                       value={form.values.address.city}
                       onChange={form.handleChange}
                     />
+                    <small>
+                      {checkInputHasError(
+                        'address.city',
+                        form.errors.address?.city
+                      )}
+                    </small>
                   </S.FormItem>
                   <div>
-                    <S.FormItem maxwidth="155px">
+                    <S.FormItem className="cep">
                       <label htmlFor="zipCode">CEP</label>
-                      <ReactInputMask
+                      <S.StyledReactInputMask
                         id="zipCode"
                         type="text"
                         name="address.zipCode"
                         value={form.values.address.zipCode}
                         onChange={form.handleChange}
                         mask="99999-999"
-                        className={
-                          checkInputHasError('address.zipCode') ? 'error' : ''
-                        }
+                        placeholder="00000-000"
                       />
+                      <small>
+                        {checkInputHasError(
+                          'address.zipCode',
+                          form.errors.address?.zipCode
+                        )}
+                      </small>
                     </S.FormItem>
-                    <S.FormItem maxwidth="155px">
+                    <S.FormItem className="address_number">
                       <label htmlFor="number">Número</label>
                       <input
                         id="number"
@@ -235,9 +268,15 @@ export const Checkout = () => {
                         value={form.values.address.number}
                         onChange={form.handleChange}
                       />
+                      <small>
+                        {checkInputHasError(
+                          'address.number',
+                          form.errors.address?.number
+                        )}
+                      </small>
                     </S.FormItem>
                   </div>
-                  <S.FormItem marginbotton="24px">
+                  <S.FormItem marginbottom="24px">
                     <label htmlFor="complement">Complemento (opcional)</label>
                     <input
                       id="complement"
@@ -250,7 +289,7 @@ export const Checkout = () => {
                   <S.ButtonDelivery
                     type="button"
                     title="Button"
-                    onClick={() => setIsPaying(true)}
+                    onClick={() => checkInputIsReady()}
                   >
                     Continuar para pagamento
                   </S.ButtonDelivery>
@@ -268,7 +307,7 @@ export const Checkout = () => {
                 <>
                   <span>
                     Pagamento - Valor a pagar{' '}
-                    {formataPreco(getTotalPrice(items))}
+                    {formataprice(getTotalPrice(items))}
                   </span>
                   <S.FormItem>
                     <label htmlFor="card.name">Nome no cartão</label>
@@ -279,36 +318,50 @@ export const Checkout = () => {
                       value={form.values.card.name}
                       onChange={form.handleChange}
                     />
+                    <small>
+                      {checkInputHasError('card.name', form.errors.card?.name)}
+                    </small>
                   </S.FormItem>
                   <div>
-                    <S.FormItem maxwidth="228px">
+                    <S.FormItem className="card_number">
                       <label htmlFor="card.number">Número do cartão</label>
-                      <ReactInputMask
+                      <S.StyledReactInputMask
                         id="card.number"
                         type="text"
                         name="card.number"
                         value={form.values.card.number}
                         onChange={form.handleChange}
                         mask="9999 9999 9999 9999"
-                        className={
-                          checkInputHasError('card.number') ? 'error' : ''
-                        }
+                        placeholder="0000-0000-0000-0000"
                       />
+                      <small>
+                        {checkInputHasError(
+                          'card.number',
+                          form.errors.card?.number
+                        )}
+                      </small>
                     </S.FormItem>
-                    <S.FormItem maxwidth="87px">
+                    <S.FormItem className="cvv">
                       <label htmlFor="card.code">CVV</label>
-                      <ReactInputMask
+                      <S.StyledReactInputMask
                         id="card.code"
                         type="text"
                         name="card.code"
                         value={form.values.card.code}
                         onChange={form.handleChange}
                         mask="9999"
+                        placeholder="000 ou 0000"
                       />
+                      <small>
+                        {checkInputHasError(
+                          'card.code',
+                          form.errors.card?.code
+                        )}
+                      </small>
                     </S.FormItem>
                   </div>
                   <div>
-                    <S.FormItem marginbotton="24px" maxwidth="155px">
+                    <S.FormItem marginbottom="24px">
                       <label htmlFor="card.expires.month">
                         Mês do vencimento
                       </label>
@@ -320,8 +373,14 @@ export const Checkout = () => {
                         onChange={form.handleChange}
                         mask="99"
                       />
+                      <small>
+                        {checkInputHasError(
+                          'card.expires.month',
+                          form.errors.card?.expires?.month
+                        )}
+                      </small>
                     </S.FormItem>
-                    <S.FormItem maxwidth="155px">
+                    <S.FormItem>
                       <label htmlFor="card.expires.year">
                         Ano do vencimento
                       </label>
@@ -333,10 +392,22 @@ export const Checkout = () => {
                         onChange={form.handleChange}
                         mask="9999"
                       />
+                      <small>
+                        {checkInputHasError(
+                          'card.expires.year',
+                          form.errors.card?.expires?.year
+                        )}
+                      </small>
                     </S.FormItem>
                   </div>
-                  <S.ButtonDelivery type="submit" title="Submit">
-                    Finalizar pagamento
+                  <S.ButtonDelivery
+                    type="submit"
+                    title="Submit"
+                    disabled={isLoading}
+                  >
+                    {isLoading
+                      ? 'Finalizando pagamento...'
+                      : 'Finalizar pagamento'}
                   </S.ButtonDelivery>
                   <S.ButtonDelivery
                     type="button"

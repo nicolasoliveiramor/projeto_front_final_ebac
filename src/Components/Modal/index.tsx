@@ -1,62 +1,57 @@
 import { useDispatch } from 'react-redux'
 
 import { add, open } from '../../store/reducers/cart'
-import { formataPreco } from '../../utils'
+import { formataprice } from '../../utils'
 
-import {
-  CloseModalDiv,
-  Modal,
-  ModalDescription,
-  ModalDetails,
-  Overlay,
-  SubModal
-} from './styles'
+import * as S from './styles'
 
 import close from '../../assets/images/close.png'
 
 export type ModalOverlayProps = {
-  prato: PratoInterface
+  dish: DishInterface
   closeModal: () => void
 }
 
-export const ModalOverlay = ({ prato, closeModal }: ModalOverlayProps) => {
+export const ModalOverlay = ({ dish, closeModal }: ModalOverlayProps) => {
   const dispatch = useDispatch()
 
   const handleOpenCart = () => {
     dispatch(open())
   }
 
-  const handleAddToCart = (prato: PratoInterface) => {
-    dispatch(add(prato))
+  const handleAddToCart = (dish: DishInterface) => {
+    dispatch(add(dish))
   }
 
   return (
     <>
-      <Modal>
-        <Overlay onClick={closeModal} />
-        <SubModal>
-          <CloseModalDiv>
+      <S.Modal>
+        <S.Overlay onClick={closeModal} />
+        <S.SubModal>
+          <S.CloseModalDiv>
             <img src={close} onClick={closeModal} />
-          </CloseModalDiv>
-          <ModalDetails>
-            <img src={prato.foto} alt={prato.nome} />
-            <ModalDescription>
-              <h3>{prato.nome}</h3>
-              <span>{prato.descricao}</span>
-              <span>Serve: de {prato.porcao}</span>
+          </S.CloseModalDiv>
+          <S.ModalDetails>
+            <img src={dish.foto} alt={dish.nome} />
+            <S.ModalDescription>
+              <h3>{dish.nome}</h3>
+              <S.SpanDiv>
+                <span className="description">{dish.descricao}</span>
+                <span>Serve: de {dish.porcao}</span>
+              </S.SpanDiv>
               <button
                 type="button"
                 onClick={() => {
                   handleOpenCart()
-                  handleAddToCart(prato)
+                  handleAddToCart(dish)
                 }}
               >
-                Adicionar ao carrinho - <span>{formataPreco(prato.preco)}</span>
+                Adicionar ao carrinho - <span>{formataprice(dish.preco)}</span>
               </button>
-            </ModalDescription>
-          </ModalDetails>
-        </SubModal>
-      </Modal>
+            </S.ModalDescription>
+          </S.ModalDetails>
+        </S.SubModal>
+      </S.Modal>
     </>
   )
 }

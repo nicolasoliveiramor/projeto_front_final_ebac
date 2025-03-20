@@ -4,9 +4,12 @@ import { breakpoints, Colors } from '../../styles'
 import { ButtonLink } from '../Button/styles'
 
 export const Card = styled.div`
-  background-color: ${Colors.white};
   max-width: 472px;
   min-height: 438px;
+  width: 100%;
+  height: 100%;
+  background-color: ${Colors.white};
+  margin: 0 auto;
   position: relative;
   border: 2px solid ${Colors.fontColor};
 
@@ -17,6 +20,7 @@ export const Card = styled.div`
 
   p {
     width: 100%;
+    max-height: 88px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,16 +35,28 @@ export const Card = styled.div`
     left: 8px;
   }
 
-  @media (max-width: ${breakpoints.desktop}) {
-    min-height: 456px;
+  @media (max-width: ${breakpoints.small}) {
+    width: 100%;
+    min-height: 508px;
   }
 
-  @media (max-width: ${breakpoints.mobile}) {
-    min-height: 510px;
+  @media ((min-width: ${breakpoints.small}) and (max-width: ${breakpoints.mobile})) {
+    width: 90%;
+    min-height: 508px;
+  }
+
+  @media ((min-width: ${breakpoints.mobile}) and (max-width: ${breakpoints.tablet})) {
+    width: 100%;
+    min-height: 508px;
+  }
+
+  @media ((min-width: ${breakpoints.tablet}) and (max-width: ${breakpoints.desktop})) {
+    width: 90%;
+    min-height: 448px;
   }
 `
 
-export const ImagemDoPrato = styled.div`
+export const RestaurantImage = styled.div`
   width: 100%;
   height: 217px;
   background-size: cover;
@@ -53,6 +69,14 @@ export const Infos = styled.div`
   position: absolute;
   top: 16px;
   right: 16px;
+  font-size: 12px;
+  font-weight: bold;
+
+  span {
+    @media (max-width: ${breakpoints.mobile}) {
+      width: auto;
+    }
+  }
 `
 
 export const TagInfo = styled.div`
@@ -64,12 +88,18 @@ export const TagInfo = styled.div`
   align-items: center;
 `
 
-export const TitleProduct = styled.div`
+export const ProductTitle = styled.div`
   display: flex;
   justify-content: space-between;
   margin-left: 8px;
   align-items: center;
   position: relative;
+
+  h3 {
+    @media (max-width: ${breakpoints.small}) {
+      font-size: 18px;
+    }
+  }
 `
 
 export const Rating = styled.div`

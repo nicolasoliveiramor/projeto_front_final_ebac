@@ -2,16 +2,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { RootReducer } from '../../store'
 import { close, remove, openCheckout } from '../../store/reducers/cart'
-import { formataPreco, getTotalPrice } from '../../utils'
+import { formataprice, getTotalPrice } from '../../utils'
 
-import {
-  ButtonCart,
-  CartContainer,
-  CartItem,
-  Overlay,
-  Prices,
-  Sidebar
-} from './styles'
+import * as S from './styles'
 
 import exit from '../../assets/images/lixeira-de-reciclagem.png'
 
@@ -33,32 +26,32 @@ export const Cart = () => {
   }
 
   return (
-    <CartContainer className={isOpen ? 'is-open' : ''}>
-      <Overlay onClick={handleCloseCart} />
-      <Sidebar>
+    <S.CartContainer className={isOpen ? 'is-open' : ''}>
+      <S.Overlay onClick={handleCloseCart} />
+      <S.Sidebar>
         {items.length === 0 ? (
           <p>Poxa... Não há nada aqui, adicione algum prato.</p>
         ) : (
           <>
             {items.map((item) => (
-              <CartItem key={item.id}>
+              <S.CartItem key={item.id}>
                 <li>
                   <img src={item.foto} alt={item.nome} />
                   <div>
                     <h3>{item.nome}</h3>
-                    <span>{formataPreco(item.preco)}</span>
+                    <span>{formataprice(item.preco)}</span>
                   </div>
                 </li>
                 <button type="button" onClick={() => removeItem(item.id)}>
                   <img src={exit} alt={`Remover ${item.nome}`} />
                 </button>
-              </CartItem>
+              </S.CartItem>
             ))}
-            <Prices>
+            <S.Prices>
               <p>Valor total </p>
-              <p>{formataPreco(getTotalPrice(items))}</p>
-            </Prices>
-            <ButtonCart
+              <p>{formataprice(getTotalPrice(items))}</p>
+            </S.Prices>
+            <S.ButtonCart
               type="button"
               title="string"
               onClick={() => {
@@ -67,10 +60,10 @@ export const Cart = () => {
               }}
             >
               Continuar com a entrega
-            </ButtonCart>
+            </S.ButtonCart>
           </>
         )}
-      </Sidebar>
-    </CartContainer>
+      </S.Sidebar>
+    </S.CartContainer>
   )
 }

@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
 import { ButtonContainer } from '../Button/styles'
-import { ImagemDoPrato, TitleProduct, CardProducts } from './styles'
 import { ModalOverlay } from '../Modal'
 
-export const Pratos = ({ prato }: { prato: PratoInterface }) => {
+import * as S from './styles'
+
+export const Dishes = ({ dish }: { dish: DishInterface }) => {
   const [isModalVisible, setModalVisible] = useState(false)
 
   const openModal = () => {
@@ -16,16 +17,16 @@ export const Pratos = ({ prato }: { prato: PratoInterface }) => {
   }
 
   return (
-    <CardProducts>
-      <ImagemDoPrato src={prato.foto} alt={prato.nome} />
-      <TitleProduct>
-        <h3>{prato.nome}</h3>
-      </TitleProduct>
-      <p>{prato.descricao}</p>
+    <S.CardProducts>
+      <S.DishImage src={dish.foto} alt={dish.nome} />
+      <S.TitleProduct>
+        <h3>{dish.nome}</h3>
+      </S.TitleProduct>
+      <p>{dish.descricao}</p>
       <ButtonContainer onClick={openModal}>Mais detalhes</ButtonContainer>
       {isModalVisible && (
-        <ModalOverlay prato={prato} closeModal={closeModal}></ModalOverlay>
+        <ModalOverlay dish={dish} closeModal={closeModal}></ModalOverlay>
       )}
-    </CardProducts>
+    </S.CardProducts>
   )
 }

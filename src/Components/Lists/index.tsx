@@ -1,31 +1,32 @@
-import { Pratos } from '../Pratos'
-import { Restaurantes } from '../Restaurante'
-import { GridRestaurantes, GridPratos } from './styles'
+import { Dishes } from '../Dishes'
+import { RestaurantCard } from '../Restaurant'
 
-export const ListaDeRestaurantes = ({
-  restaurantes
+import * as S from './styles'
+
+export const RestaurantList = ({
+  restaurants
 }: {
-  restaurantes: RestauranteInterface[]
+  restaurants: RestaurantInterface[]
 }) => {
   return (
     <div className="container">
-      <GridRestaurantes>
-        {restaurantes.map((item) => (
-          <Restaurantes key={item.id} restaurante={item} />
+      <S.RestaurantGrid>
+        {restaurants.map((item) => (
+          <RestaurantCard key={item.id} restaurant={item} />
         ))}
-      </GridRestaurantes>
+      </S.RestaurantGrid>
     </div>
   )
 }
 
-export const ListaDePratos = ({ prato }: { prato: PratoInterface[] }) => {
+export const DishesList = ({ dish }: { dish: DishInterface[] }) => {
   return (
     <div className="container">
-      <GridPratos>
-        {prato.map((item) => (
-          <Pratos key={item.id} prato={item} />
+      <S.DishesGrid>
+        {dish.map((item) => (
+          <Dishes key={item.id} dish={item} />
         ))}
-      </GridPratos>
+      </S.DishesGrid>
     </div>
   )
 }

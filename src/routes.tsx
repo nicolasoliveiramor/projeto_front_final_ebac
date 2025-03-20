@@ -1,11 +1,11 @@
-import { Route, Routes } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import { Home } from './pages/Home'
-import { PratosRestaurante } from './pages/Pratos_Restaurant'
+import { Dishesrestaurant } from './pages/Dishes_Restaurant'
 
-export const Rotas = () => (
+export const UrlRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/restaurante/:id" element={<PratosRestaurante />} />{' '}
+    <Route path="/restaurant/:id" element={<Dishesrestaurant />} />{' '}
   </Routes>
 )

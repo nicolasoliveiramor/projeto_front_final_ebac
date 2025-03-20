@@ -4,13 +4,15 @@ export const Colors = {
   fontColor: '#E66767',
   fontColorSecondary: '#FFEBD9',
   corDeFundo: '#FFF8F2',
-  white: '#fff'
+  white: '#fff',
+  black: '#000'
 }
 
 export const breakpoints = {
-  desktop: '1024px',
-  tablet: '768px',
-  mobile: '450px'
+  desktop: '1025px',
+  tablet: '769px',
+  mobile: '426px',
+  small: '325px'
 }
 
 export const GlobalCss = createGlobalStyle`
@@ -34,7 +36,7 @@ export const GlobalCss = createGlobalStyle`
     margin: 0 auto;
 
     @media (max-width: ${breakpoints.tablet}) {
-      max-width: 80%;
+      max-width: 90%;
     }
   }
 `

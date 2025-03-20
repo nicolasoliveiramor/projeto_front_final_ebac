@@ -1,10 +1,13 @@
+import ReactInputMask from 'react-input-mask'
 import { styled } from 'styled-components'
-import { Colors } from '../../styles'
+
 import { ButtonContainer } from '../../Components/Button/styles'
+
+import { breakpoints, Colors } from '../../styles'
 
 type FormItemProps = {
   maxwidth?: string
-  marginbotton?: string
+  marginbottom?: string
 }
 
 export const Overlay = styled.div`
@@ -33,14 +36,18 @@ export const DeliveryContainer = styled.div`
 `
 
 export const Sidebar = styled.aside`
-  width: 100%;
   max-width: 360px;
+  width: 100%;
   background-color: ${Colors.fontColor};
   color: ${Colors.fontColorSecondary};
   z-index: 1;
-  padding: 40px 16px 0 16px;
+  padding: 32px 8px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 90%;
+  }
 `
 
 export const ButtonDelivery = styled(ButtonContainer)`
@@ -56,10 +63,16 @@ export const FormItem = styled.div<FormItemProps>`
   flex: 1;
   flex-direction: column;
   max-width: ${(props) => props.maxwidth || 'auto'};
-  margin-bottom: ${(props) => props.marginbotton || 'auto'};
+  margin-bottom: ${(props) => props.marginbottom || 'auto'};
 
-  &.error {
-    border: 1px solid red;
+  input {
+    &.error {
+      border: 1px solid red;
+    }
+  }
+
+  small {
+    margin-bottom: 8px;
   }
 `
 
@@ -82,11 +95,41 @@ export const Form = styled.form`
   }
 
   div {
+    max-width: 360px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    column-gap: 34px;
 
     ${FormItem} {
-      width: 155px;
+      max-width: 155px;
+      width: 100%;
+
+      &.card_number {
+        max-width: 228px;
+        width: 100%;
+      }
+      &.cvv {
+        max-width: 87px;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: ${breakpoints.small}) {
+      column-gap: 8px;
+
+      ${FormItem} {
+        max-width: 130px;
+        width: 100%;
+      }
+    }
+    @media ((min-width: ${breakpoints.small}) and (max-width: ${breakpoints.mobile})) {
+      column-gap: 8px;
+
+      ${FormItem} {
+        max-width: 155px;
+        width: 100%;
+      }
     }
   }
 
@@ -102,5 +145,13 @@ export const Form = styled.form`
     border: none;
     margin-bottom: 8px;
     padding: 8px;
+  }
+`
+
+export const StyledReactInputMask = styled(ReactInputMask)`
+  &::placeholder {
+    font-size: 12px;
+    color: ${Colors.fontColor};
+    opacity: 0.5;
   }
 `

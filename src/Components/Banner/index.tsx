@@ -32,7 +32,7 @@ export const RestaurantBanner = () => {
         <div>
           <S.RestaurantLink to={'/'}>Restaurantes</S.RestaurantLink>
           <button onClick={openCart}>
-            <span>{items.length}</span> Produtos(s) no carrinho
+            <span>{items.length}</span> Produto(s) no carrinho
           </button>
         </div>
       </S.BannerContent>

@@ -51,23 +51,24 @@ export const SubModal = styled.div`
   z-index: 1;
 
   @media (max-width: ${breakpoints.mobile}) {
-    max-height: 80vh;
+    max-height: 50vh;
     height: 100%;
     justify-content: center;
   }
 
   @media ((min-width: ${breakpoints.mobile}) and (max-width: ${breakpoints.tablet})) {
-    width: 95%;
+    width: 100%;
     height: 424px;
   }
 
   @media ((min-width: ${breakpoints.mobile}) and (max-width: ${breakpoints.desktop})) {
-    width: 90%;
+    max-width: 100vw;
+    width: 100%;
   }
 `
 
 export const ModalDetails = styled.div`
-  max-height: 80vh;
+  max-height: 100vh;
   height: 100%;
   display: flex;
   flex-direction: row;
